@@ -7,33 +7,38 @@ const SearchEntry = (props) => {
       <Text style={{ paddingRight: 5 }}>{props.type}:</Text>
       <TextInput
         style={styles.textBox}
-        onChangeText={(text) => props.onChange(text)}
-        value={workMinutes.toString()}
+        onChangeText={(text) => {
+          props.onChange(text);
+          console.log(props.value);
+        }}
+        // value={workMinutes.toString()}
       />
     </View>
   );
 };
 
-const MovieSearch = () => {
-  let [title, setTitle] = useState("");
-  let [year, setYear] = useState("");
+const MovieSearch = ({ navigation }) => {
+  let [title, setTitle] = useState("title");
+  let [year, setYear] = useState("year");
 
   const titleHandler = (text) => {
-    setTitle = text;
+    setTitle(text);
   };
   const yearHandler = (text) => {
-    setYear = text;
+    setYear(text);
   };
 
   async function searchButtonHandler() {
-    let title = "s=Toy+Story";
+    let titleSearch = "s=" + title;
     let plot = "plot=full";
     let url = "http://www.omdbapi.com/?";
     let apiKey = "apikey=2abc6af7";
-    const res = await fetch(url + apiKey + "&" + title);
+    const res = await fetch(url + apiKey + "&" + titleSearch);
 
     const data = await res.json();
     console.log(data);
+    navigation.navigate("Profile");
+    // console.log(title, year);
   }
 
   return (
