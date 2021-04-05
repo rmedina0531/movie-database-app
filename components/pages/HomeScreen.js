@@ -2,6 +2,19 @@ import React, { useState } from "react";
 import { Button, View, Text, StyleSheet, TextInput } from "react-native";
 // import Search from "../Search";
 
+const users = [
+  {
+    name: "brynn",
+    avatar:
+      "https://upload.wikimedia.org/wikipedia/en/a/a6/Bender_Rodriguez.png",
+  },
+  {
+    name: "Bender",
+    avatar:
+      "https://comicvine1.cbsistatic.com/uploads/scale_medium/11/114183/6665970-%24%20%281%29.png",
+  },
+];
+
 const SearchEntry = (props) => {
   return (
     <View style={styles.searchEntry}>
@@ -56,8 +69,8 @@ const HomeScreen = ({ navigation }) => {
     const res = await fetch(url + apiKey + "&" + titleSearch);
 
     const data = await res.json();
-    console.log(data);
-    navigation.navigate("Profile");
+    // console.log(typeof data);
+    navigation.navigate("Results", { data });
     // console.log(title, year);
   }
   return (
