@@ -10,9 +10,11 @@ import {
 } from "react-native";
 import { Card, Button, Icon, ListItem } from "react-native-elements";
 
+// use touchable opacity to wrap
+
 const Item = ({ data }) => (
   <View style={styles.item}>
-    <Text style={styles.title}>{data.title}</Text>
+    <Text style={styles.title}>{data.Title}</Text>
     <Image style={styles.logo} source={{ uri: data.Poster }} />
   </View>
 );
@@ -28,6 +30,7 @@ const Results = (props) => {
   //   } else {
   //     console.log("something went wrong");
   //   }
+  console.log(props.route.params.data);
 
   const renderItem = ({ item }) => <Item data={item} />;
   return (
@@ -59,7 +62,7 @@ const styles = StyleSheet.create({
   },
   item: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     backgroundColor: "#f9c2ff",
     padding: 20,
     marginVertical: 8,
@@ -67,13 +70,16 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
+    textAlign: "center",
   },
   tinyLogo: {
-    width: 50,
-    height: 50,
+    width: 100,
+    height: 100,
   },
   logo: {
     width: 200,
     height: 350,
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 });
