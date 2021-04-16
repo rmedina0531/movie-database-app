@@ -4,11 +4,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 // import pages
-import HomeScreen from "./components/pages/HomeScreen";
-import NotificationScreen from "./components/pages/NotificationScreen";
-import ProfileScreen from "./components/pages/ProfileScreen";
-import SettingsScreen from "./components/pages/SettingsScreen";
-import Results from "./components/pages/Results";
+import HomeScreen from "./pages/HomeScreen";
+import Results from "./pages/Results";
+import MoreInfo from "./pages/MoreInfo";
 
 const Stack = createStackNavigator();
 
@@ -17,10 +15,8 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Notifications" component={NotificationScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen name="Results" component={Results} />
+        <Stack.Screen name="MoreInfo" component={MoreInfo} />
       </Stack.Navigator>
     </NavigationContainer>
   );

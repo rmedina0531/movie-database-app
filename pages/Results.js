@@ -9,15 +9,33 @@ import {
   StatusBar,
 } from "react-native";
 import { Card, Button, Icon, ListItem } from "react-native-elements";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 // use touchable opacity to wrap
 
-const Item = ({ data }) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{data.Title}</Text>
-    <Image style={styles.logo} source={{ uri: data.Poster }} />
-  </View>
-);
+const Item = ({ data }) => {
+  const navigation = useNavigation();
+
+  async function onPress() {
+    let imdbkey = "i=" + data.imdbID;
+    let url = "http://www.omdbapi.com/?";
+    let apiKey = "apikey=2abc6af7";
+    const res = await fetch(url + apiKey + "&" + imdbkey);
+
+    const movie_data = await res.json();
+    console.log(movie_data);
+    // console.log(typeof data);
+    navigation.navigate("MoreInfo", { movie_data });
+    // console.log(title, year);
+  }
+  return (
+    <TouchableOpacity style={styles.item} onPress={onPress}>
+      <Text style={styles.title}>{data.Title}</Text>
+      <Image style={styles.logo} source={{ uri: data.Poster }} />
+    </TouchableOpacity>
+  );
+};
 
 const Results = (props) => {
   let resultPacket = props.route.params.data;

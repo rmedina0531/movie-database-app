@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, View, Text, StyleSheet, TextInput } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 // import Search from "../Search";
 
 const users = [
@@ -50,7 +51,8 @@ const Search = (props) => {
   );
 };
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
+  const navigation = useNavigation();
   let [title, setTitle] = useState("title");
   let [year, setYear] = useState("year");
 
@@ -113,6 +115,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: "white",
     fontSize: 15,
-    width: 50,
+    width: 150,
   },
 });
