@@ -7,6 +7,7 @@ import {
   StyleSheet,
   FlatList,
   StatusBar,
+  ImageBackground,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -52,23 +53,40 @@ const Results = (props) => {
   // console.log(props.route.params.data);
 
   const renderItem = ({ item }) => <Item data={item} navigation={navigation} />;
-  return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={resultArray}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.imdbID}
-      />
-    </SafeAreaView>
-    // <Card containerStyle={{ padding: 0 }}>
-    //   {resultArray.map((entry, i) => (
-    //     <ListItem key={i}>
-    //       <Text>{entry.Title}</Text>
-    //       <Image style={styles.logo} source={{ uri: entry.Poster }} />
-    //     </ListItem>
-    //   ))}
-    // </Card>
-  );
+  console.log(data.Response);
+  if (data.Response === "True") {
+    console.log("no Quack");
+    return (
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={resultArray}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.imdbID}
+        />
+      </SafeAreaView>
+      // <Card containerStyle={{ padding: 0 }}>
+      //   {resultArray.map((entry, i) => (
+      //     <ListItem key={i}>
+      //       <Text>{entry.Title}</Text>
+      //       <Image style={styles.logo} source={{ uri: entry.Poster }} />
+      //     </ListItem>
+      //   ))}
+      // </Card>
+    );
+  } else {
+    console.log("quack");
+    return (
+      <View style={styles.container}>
+        <Image
+          style={styles.logo}
+          source={{
+            uri:
+              "https://as1.ftcdn.net/jpg/01/41/11/48/500_F_141114881_1NUIUQ3uDi6EqDijNPoUHPN81dYONt1E.jpg",
+          }}
+        />
+      </View>
+    );
+  }
 };
 
 export default Results;
@@ -102,5 +120,10 @@ const styles = StyleSheet.create({
     height: 350,
     marginLeft: "auto",
     marginRight: "auto",
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
   },
 });
