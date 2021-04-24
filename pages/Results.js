@@ -8,15 +8,13 @@ import {
   FlatList,
   StatusBar,
 } from "react-native";
-import { Card, Button, Icon, ListItem } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
 
 // use touchable opacity to wrap
 
-const Item = ({ data }) => {
-  const navigation = useNavigation();
-
+const Item = (props) => {
+  const { data } = props;
+  const { navigation } = props;
   async function onPress() {
     let imdbkey = "i=" + data.imdbID;
     let url = "http://www.omdbapi.com/?";
@@ -26,20 +24,23 @@ const Item = ({ data }) => {
     const movie_data = await res.json();
     console.log(movie_data);
     // console.log(typeof data);
-    navigation.navigate("MoreInfo", { movie_data });
+    navigation.navigate("MoreInfo", { movie_data: movie_data });
     // console.log(title, year);
   }
   return (
     <TouchableOpacity style={styles.item} onPress={onPress}>
       <Text style={styles.title}>{data.Title}</Text>
+      <Text style={{ textAlign: "center" }}>Release Date: {data.Year}</Text>
       <Image style={styles.logo} source={{ uri: data.Poster }} />
     </TouchableOpacity>
   );
 };
 
 const Results = (props) => {
-  let resultPacket = props.route.params.data;
-  let resultArray = resultPacket.Search;
+  const { navigation, route } = props;
+  const { data } = route.params;
+  console.log(data);
+  let resultArray = data.Search;
   //   console.log(results);
   //   console.log(typeof results);
   //   console.log(results.Response);
@@ -48,9 +49,9 @@ const Results = (props) => {
   //   } else {
   //     console.log("something went wrong");
   //   }
-  console.log(props.route.params.data);
+  // console.log(props.route.params.data);
 
-  const renderItem = ({ item }) => <Item data={item} />;
+  const renderItem = ({ item }) => <Item data={item} navigation={navigation} />;
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -76,15 +77,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
+    backgroundColor: "#808f85",
     // paddingTop: 50
   },
   item: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "#f9c2ff",
+    backgroundColor: "#d6f49d",
     padding: 20,
     marginVertical: 8,
-    marginHorizontal: 16,
+    marginHorizontal: 40,
+    borderRadius: 30,
   },
   title: {
     fontSize: 32,
@@ -95,7 +98,7 @@ const styles = StyleSheet.create({
     height: 100,
   },
   logo: {
-    width: 200,
+    width: 240,
     height: 350,
     marginLeft: "auto",
     marginRight: "auto",

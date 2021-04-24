@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Button, View, Text, StyleSheet, TextInput } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 // import Search from "../Search";
 
 const users = [
@@ -19,7 +18,16 @@ const users = [
 const SearchEntry = (props) => {
   return (
     <View style={styles.searchEntry}>
-      <Text style={{ paddingRight: 5 }}>{props.type}:</Text>
+      <Text
+        style={{
+          fontSize: 30,
+          fontWeight: "bold",
+          color: "#ffcad4",
+          paddingRight: 5,
+        }}
+      >
+        {props.type}:
+      </Text>
       <TextInput
         style={styles.textBox}
         onChangeText={(text) => {
@@ -41,18 +49,17 @@ const Search = (props) => {
         onChange={props.titleHandler}
         value={props.title}
       />
-      <SearchEntry
-        type="Year"
-        onChange={props.yearHandler}
-        value={props.year}
+      <Button
+        style={styles.buttonStyle}
+        title="Search"
+        onPress={props.onSearch}
       />
-      <Button title="Search" onPress={props.onSearch} />
     </View>
   );
 };
 
-const HomeScreen = () => {
-  const navigation = useNavigation();
+const HomeScreen = (props) => {
+  const { navigation } = props;
   let [title, setTitle] = useState("title");
   let [year, setYear] = useState("year");
 
@@ -70,9 +77,10 @@ const HomeScreen = () => {
     let apiKey = "apikey=2abc6af7";
     const res = await fetch(url + apiKey + "&" + titleSearch);
 
-    const data = await res.json();
+    const search_results = await res.json();
     // console.log(typeof data);
-    navigation.navigate("Results", { data });
+    // console.log(data);
+    navigation.navigate("Results", { data: search_results });
     // console.log(title, year);
   }
   return (
@@ -98,13 +106,17 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   homeScreen: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#12130f",
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "stretch",
   },
   h1: {
-    fontSize: 30,
+    fontSize: 50,
+    fontWeight: "bold",
+    color: "#ffcad4",
+    textAlign: "center",
+    paddingBottom: 150,
   },
   searchEntry: {
     display: "flex",
@@ -114,7 +126,12 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 1,
     backgroundColor: "white",
-    fontSize: 15,
-    width: 150,
+    fontSize: 30,
+    width: 250,
+    height: 50,
+    marginBottom: 50,
+  },
+  buttonStyle: {
+    backgroundColor: "#d6f49d",
   },
 });
