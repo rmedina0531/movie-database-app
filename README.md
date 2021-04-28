@@ -5,6 +5,18 @@ search for movies included in the [Open Movie Database](http://www.omdbapi.com/)
 and view additional information about any movies they select. Check out the
 [staff solution](#staff-solution) for a working version.
 
+## App Notes
+
+App searches using movie title
+Tapping on result shows more info
+
+App takes into account search that results in no results
+Showing a not found image
+
+link to published app
+https://expo.io/accounts/rmedina0531/projects/assignment2
+https://github.com/rmedina0531/movie-database-app
+
 ## Requirements
 
 - You may not import libraries other than the below:
